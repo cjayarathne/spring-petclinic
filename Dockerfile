@@ -4,18 +4,18 @@ FROM java:7
 RUN apt-get update
 RUN apt-get install -y wget git-core maven
 
-WORKDIR /spring-petclinic-demo
+WORKDIR /spring-petclinic
 
 # Pull project
 RUN git clone https://github.com/cjayarathne/spring-petclinic.git
 
 # Prepare by downloading dependencies
-ADD pom.xml /spring-petclinic-demo/pom.xml
+ADD pom.xml /spring-petclinic/pom.xml
 RUN ["mvn", "dependency:resolve"]
 RUN ["mvn", "verify"]
 
 # Adding source, compile and package into a fat jar
-ADD src /spring-petclinic-demo/src
+ADD src /spring-petclinic/src
 RUN ["mvn", "package"]
 
 EXPOSE 9966
